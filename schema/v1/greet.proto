@@ -8,8 +8,24 @@ package greet.v1;
 // Defines the go package to be auto generated.
 option go_package = "example/gen/greet/v1;greetv1";
 
-// Message definition for the client request to the server.
-// Note the type safety.
+/**
+* Message definition for the client request to the server.
+* Note the type safety.
+* 
+* Types may be scalar (https://protobuf.dev/programming-guides/proto3/#scalar) which includes int, float, strings, bools...
+* Or enumerations (https://protobuf.dev/programming-guides/proto3/#enum) which are defined with a separate enum field (see link)
+* 
+* The numbers (e.g. below the `= 1`) are "field numbers" which must be unique (and have some other restrictions, see https://protobuf.dev/programming-guides/proto3/#assigning)
+* but defines the order in which fields are written over the wire, i.e. once the message is in use the number ordering cannot change. New numbers may be introduced but not deleted.
+* If you want to update a field, you must delete the current field and introduce a new one with a new number.
+* There is a LOT of nuance to the number fields, especially around efficiency. See the link for more.
+* 
+* Fields may have specific cardinalities (https://protobuf.dev/programming-guides/proto3/#field-labels), which include:
+* - singular (with two sub-specifications, optional and implicit. Basically always use optional, which is the default): meaning one value for this field
+* - repeated: meaning the field may have zero or more appearances in a single message
+* - map: a paired key/value type. See (https://protobuf.dev/programming-guides/encoding/#maps)
+* Other field cardinalities are specified by prepending the cardinality, such as `repeated string name = 1;`
+*/ 
 message GreetRequest {
   string name = 1;
 }
