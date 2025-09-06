@@ -1,0 +1,11 @@
+version: v2
+# These specify how to generate code, note the reference to go-specific generators.
+# `out: gen` tells buf to put the generated code in a directory called `gen`
+# source relative tells buf where to put the packages in the file tree --- relative to the source file (here)
+plugins:
+  - local: protoc-gen-go
+    out: gen
+    opt: paths=source_relative
+  - local: protoc-gen-connect-go
+    out: gen
+    opt: paths=source_relative
