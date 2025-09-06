@@ -6,7 +6,8 @@ syntax = "proto3";
 package greet.v1;
 
 // Defines the go package to be auto generated.
-option go_package = "example/gen/greet/v1;greetv1";
+// Note this should match the go package in question! So whatever was used for `go mod init ...`
+option go_package = "hmcalister/connectrpcTutorial/gen/greet/v1;greetv1";
 
 /**
 * Message definition for the client request to the server.
