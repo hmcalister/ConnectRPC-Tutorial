@@ -31,4 +31,25 @@ That's all the generation done for us! The generated files are a little unhappy 
 
 ### Implement Server Logic
 
-Inside `cmd/server/main.go` implement the server logic to listen for incoming requests and server responses.
+Inside `cmd/server/main.go` implement the server logic to listen for incoming requests and server responses. We use `greetv1connect.NewGreetServiceHandler` to easily create a handler from the specific implementor of the protobuf methods.
+
+### Run and Request the Server
+
+Run `go run cmd/server/main.go` to start serving the API on `localhost:8080`, with the API specific methods bound under the `/greet.v1.GreetService/` subpath. We can easily request the server using curl, for example:
+```bash
+curl \
+    --header "Content-Type: application/json" \
+    --data '{"name": "Jane"}' \
+    http://localhost:8080/greet.v1.GreetService/Greet
+```
+or with gRPC:
+```bash
+grpcurl \
+    -protoset <(buf build -o -) -plaintext \
+    -d '{"name": "Jane"}' \
+    localhost:8080 greet.v1.GreetService/Greet
+```
+
+### Making a Client
+
+We can also make a full fleshed client in Go. This time, in `cmd/client/main.go`, we use `greetv1connect.NewGreetServiceClient` to make a client that will send `GreetRequest` to the server.
