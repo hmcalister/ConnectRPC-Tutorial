@@ -1,0 +1,26 @@
+// Defines the syntax for generation. Almost certainly leave as proto3.
+// See https://protobuf.dev/programming-guides/proto3/
+syntax = "proto3";
+
+// Defines the package to be generated and the below services to be placed in.
+package greet.v1;
+
+// Defines the go package to be auto generated.
+option go_package = "example/gen/greet/v1;greetv1";
+
+// Message definition for the client request to the server.
+// Note the type safety.
+message GreetRequest {
+  string name = 1;
+}
+
+// Message definition for server response to client.
+message GreetResponse {
+  string greeting = 1;
+}
+
+// API endpoints, for which we define only one:
+// An endpoint taking a GreetRequest and returning a GreetResponse
+service GreetService {
+  rpc Greet(GreetRequest) returns (GreetResponse) {}
+}
